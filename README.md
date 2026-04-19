@@ -30,7 +30,8 @@ chmod +x install.sh
 ```bash
 ./install.sh
 ```
--> 4.1 The script will warn you about changing files in `.config`. Make the backups of your configurations first. To contionue type _y_ and press Enter
--> 4.2 Choose your platform - desktop/laptop. This changes whether to add batery display to polybar
+<br>
+-> 4.1 The script will warn you about changing files in `.config`. Make the backups of your configurations first. To contionue type "y" and press Enter <br>
+-> 4.2 Choose your platform - desktop/laptop. This changes whether to add batery display to polybar<br>
 
-READY!
+Ready, enjoy the configuration!
