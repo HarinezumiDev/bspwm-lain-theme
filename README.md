@@ -11,6 +11,7 @@
 ### Platforms
 - desktop
 - laptop
+
 _Choose this by using `install.sh`_
 ### Setup
 1. Clone the repository to your local machine
