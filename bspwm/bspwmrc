@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+mapfile -t monitors < <(xrandr --query | awk '/ connected/ {print $1}')
+
+if [ "${#monitors[@]}" -eq 0 ]; then
+  echo "No monitors detected!"
+  exit 1
+fi
+
+primary="${monitors[0]}"
+resolution=$(xrandr | grep -A1 "^${primary} connected" | tail -1 | awk '{print $1}')
+
+if [ "${#monitors[@]}" -eq 1 ]; then
+  xrandr --output "$primary" --primary --mode "$resolution" --pos 0x0
+  sleep 0.3
+  bspc monitor "$primary" -d I II III IV V VI VII VIII
+  bspc config -m "$primary" top_padding 24
+  bspc config -m "$primary" bottom_padding 0
+  bspc config -m "$primary" left_padding 0
+  bspc config -m "$primary" right_padding 0
+else
+  secondary="${monitors[1]}"
+  sec_resolution=$(xrandr | grep -A1 "^${secondary} connected" | tail -1 | awk '{print $1}')
+  primary_width=$(echo "$resolution" | cut -d'x' -f1)
+  
+  xrandr --output "$primary" --primary --mode "$resolution" --pos 0x0 \
+         --output "$secondary" --mode "$sec_resolution" --pos "${primary_width}x0"
+  
+  sleep 1
+  bspc monitor "$primary" -d I II III IV V
+  bspc monitor "$secondary" -d VI VII VIII
+  
+  for m in $(bspc query -M --names); do
+    bspc config -m "$m" top_padding 24
+    bspc config -m "$m" bottom_padding 0
+    bspc config -m "$m" left_padding 0
+    bspc config -m "$m" right_padding 0
+  done
+fi
+
+bspc config border_width 1
+bspc config window_gap 8
+bspc config split_ratio 0.52
+bspc config gapless_monocle true
+bspc config focus_follows_pointer true
+bspc config ignore_ewmh_struts true
+
+bspc config normal_border_color "#642f27"
+bspc config active_border_color "#da984a"
+bspc config presel_border_color "#642f27"
+bspc config focused_border_color "#da984a"
+
+bspc rule -a mpv state=floating
+
+pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x feh >/dev/null || feh --no-fehbg --bg-fill ~/nixos-config/config/wallpapers/lain.jpg &
+pgrep -x picom >/dev/null || picom --config ~/.config/picom/picom.conf &
+sleep 0.5 && ~/.config/polybar/launch.sh &
+pgrep -x dunst >/dev/null || dunst &
+
+setxkbmap -layout de,ua,ru -option grp:win_space_toggle
+xsetroot -cursor_name left_ptr

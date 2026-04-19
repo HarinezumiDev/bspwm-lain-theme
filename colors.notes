@@ -1,0 +1,15 @@
+// polybar
+color-1 = #800d00 // lain hair
+color-2 = #6f8f35 // dirty green
+bg = #e6e4e1
+fg = #262626
+
+// wm
+active_border_color = #da984a
+normal_border_color = #642f27
+
+// rofi
+fg = #303030
+gray = #ccc8c8 // txt color
+color-1 = #ff7445 // choosen txt color
+color-2 = #bab4ab // border

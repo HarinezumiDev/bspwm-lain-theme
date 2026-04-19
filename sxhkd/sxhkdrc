@@ -1,0 +1,44 @@
+super + Return
+  kitty
+super + a
+  rofi -show drun
+super + q
+  bspc node -c
+super + {1-5}
+  bspc desktop -f ^{1-5}
+super + {6-8}
+  bspc desktop -f ^{6-8}
+super + shift + {1-5}
+  bspc node -d ^{1-5}
+super + shift + {6-8}
+  bspc node -d ^{6-8}
+super + alt + r
+  bash ~/.config/bspwm/bspwmrc
+super + shift + s
+  scrot '~/Pictures/screenshot_%Y-%m-%d_%H%M%S.png'
+super + alt + Escape
+  pkill -x sxhkd; sxhkd &
+super + ctrl + l
+  echo "Screen Locker"
+XF86AudioRaiseVolume
+    pamixer -i 5
+XF86AudioLowerVolume
+    pamixer -d 5
+XF86AudioMute
+    pamixer -t
+super + t
+    bspc node -t ~floating
+super + g
+    bspc node -g sticky -l above -t floating
+Print
+    maim --select | xclip -selection clipboard -t image/png && notify-send "Screenshot" "Copied to clipboard"
+shift + Print
+    maim --select ~/Pictures/$(date +%Y%m%d_%H%M%S).png && notify-send "Screenshot" "Saved to ~/Pictures"
+ctrl + Print
+    maim ~/Pictures/$(date +%Y%m%d_%H%M%S).png && notify-send "Screenshot" "Full screen saved"
+super + n
+    ~/.config/dunst/notification-center.sh
+super + e
+  thunar
+super + d
+  eww open --toggle lain_popup

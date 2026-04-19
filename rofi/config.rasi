@@ -1,0 +1,74 @@
+configuration {
+    modi: "drun";
+    show-icons: false;
+    display-drun: "";
+    drun-display-format: "{name}";
+    font: "JetBrainsMono Nerd Font Mono 10";
+}
+
+* {
+    bg2: #262621;
+    bg: #262626;
+    color-1: #ff7445;
+    color-2: #bab4ab;
+    fg: #303030;
+    gray: #ccc8c8;
+}
+
+window {
+    background-color: @bg;
+    border: 1px;
+    border-color: @color-2;
+    width: 400px;
+}
+
+mainbox {
+    background-color: @bg;
+}
+
+inputbar {
+    background-color: @bg2;
+    padding: 8px;
+    border: 0px 0px 1px 0px;
+    border-color: @color-2;
+    children: [entry];
+}
+
+entry {
+    background-color: @bg2;
+    text-color: @color-2;
+    placeholder: "Enter the wired";
+    placeholder-color: @gray;
+}
+
+listview {
+    background-color: @bg;
+    lines: 8;
+    padding: 4px 0px;
+    scrollbar: false;
+}
+
+element {
+    background-color: @bg;
+    padding: 6px 8px;
+}
+
+element.normal.normal {
+    background-color: @bg;
+    text-color: @gray;
+}
+
+element.alternate.normal {
+    background-color: @bg;
+    text-color: @gray;
+}
+
+element.selected.normal {
+    background-color: @bg2;
+    text-color: @color-1;
+}
+
+element-text {
+    background-color: inherit;
+    text-color: inherit;
+}

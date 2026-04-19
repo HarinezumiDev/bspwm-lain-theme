@@ -1,0 +1,40 @@
+(defpoll time      :interval "1s"   "date +%H:%M")
+(defpoll weather   :interval "300s" "~/.config/eww/scripts/weather.sh")
+(defpoll tailscale :interval "10s"  "~/.config/eww/scripts/tailscale.sh")
+(defpoll meters    :interval "2s"   "~/.config/eww/scripts/meter.sh")
+
+(defwidget lain_widget []
+  (box :class "popup" :orientation "v" :spacing 0
+
+    (box :class "row-head" :orientation "h" :space-evenly false
+      (label :class "title"   :text "[Present Day, Present Time]")
+      (label :class "gap"     :text "   " :hexpand true)
+      (label :class "clock"   :text time))
+
+    (box :class "row-weather" :space-evenly false
+      (label :class "weather-val" :text weather))
+
+    (box :class "row-meter" :orientation "h" :space-evenly false
+      (label :class "meter" :text {meters.cpu})
+      (label :class "pipe"  :text " |"))
+
+    (box :class "row-meter" :orientation "h" :space-evenly false
+      (label :class "meter"        :text {meters.ram})
+      (label :class "pipe"         :text " |")
+      (label :class "tailscale"    :text "  Tailscale: ")
+      (label :class "tailscale-val" :text tailscale))
+
+    (box :class "row-meter" :orientation "h" :space-evenly false
+      (label :class "meter" :text {meters.disk})
+      (label :class "pipe"  :text " |"))))
+
+(defwindow lain_popup
+  :monitor 0
+  :geometry (geometry
+    :x "0px"
+    :y "25px"
+    :anchor "top left")
+  :stacking "fg"
+  :wm-ignore true
+  :focusable false
+  (lain_widget))
